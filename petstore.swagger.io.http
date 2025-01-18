@@ -1,0 +1,263 @@
+@apiUrl = https://petstore.swagger.io/v2
+
+# pet Everything about your Pets
+
+@petId = 9223372036854775807
+# status: sold|ava
+@statusQuery = ?status=sold
+
+### uploads an image > TODO
+POST {{apiUrl}}/pet/{{petId}}/uploadImage
+Content-Type: application/json
+Accept: application/json
+
+
+### Add a new pet to the store
+POST {{apiUrl}}/pet
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 0,
+  "category": {
+    "id": 0,
+    "name": "string"
+  },
+  "name": "doggie",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
+
+### Update an existing pet
+PUT {{apiUrl}}/pet
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 0,
+  "category": {
+    "id": 0,
+    "name": "name two"
+  },
+  "name": "doggie",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
+
+### Finds Pets by status
+GET {{apiUrl}}/pet/findByStatus{{statusQuery}}
+Content-Type: application/json
+Accept: application/json
+
+### Find pet by ID
+GET {{apiUrl}}/pet/{{petId}}
+Content-Type: application/json
+Accept: application/json
+
+### Updates a pet in the store with form data
+POST {{apiUrl}}/pet/{{petId}}
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+name=bname
+&status=sold
+
+### Deletes a pet
+DELETE {{apiUrl}}/pet/{{petId}}
+Content-Type: application/json
+Accept: application/json
+
+
+
+
+# store Access to Petstore orders
+@orderId = 9223372036854775027
+
+### Returns pet inventories by status
+GET {{apiUrl}}/store/inventory
+Content-Type: application/json
+Accept: application/json
+
+### Place an order for a pet
+POST {{apiUrl}}/store/order
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 0,
+  "petId": 0,
+  "quantity": 12,
+  "shipDate": "2025-01-18T21:47:21.732Z",
+  "status": "placed",
+  "complete": true
+}
+
+### Find purchase order by ID
+GET {{apiUrl}}/store/order/{{orderId}}
+Content-Type: application/json
+Accept: application/json
+
+### Delete purchase order by ID
+DELETE {{apiUrl}}/store/order/{{orderId}}
+Content-Type: application/json
+Accept: application/json
+
+
+
+
+# user Operations about user
+
+@username = uxusername
+@firstName = user
+@lastName = name
+@email = username@example.com
+@password = pxpasword
+@phone = 333666999
+
+@username2 = uyusername
+@firstName2 = user
+@lastName2 = name
+@email2 = username@example.com
+@password2 = pypasword
+@phone2 = 111333666
+
+@username3 = uzusername
+@firstName3 = user
+@lastName3 = name
+@email3 = username@example.com
+@password3 = pzpasword
+@phone3 = 222555777
+
+
+### Creates list of users with given input array
+POST {{apiUrl}}/user/createWithList
+Content-Type: application/json
+Accept: application/json
+
+[
+  {
+    "id": 0,
+    "username": "{{username}}",
+    "firstName": "{{firstName}}",
+    "lastName": "{{lastName}}",
+    "email": "{{email}}",
+    "password": "{{password}}",
+    "phone": "{{phone}}",
+    "userStatus": 0
+  },
+  {
+    "id": 0,
+    "username": "{{username2}}",
+    "firstName": "{{firstName2}}",
+    "lastName": "{{lastName2}}",
+    "email": "{{email2}}",
+    "password": "{{password2}}",
+    "phone": "{{phone2}}",
+    "userStatus": 0
+  }
+]
+
+### Get user by user name
+GET {{apiUrl}}/user/{{username}}
+Content-Type: application/json
+Accept: application/json
+
+### Updated user || 9223372036854775807
+PUT {{apiUrl}}/user/{{username}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "id": 0,
+    "username": "{{username3}}",
+    "firstName": "{{firstName3}}",
+    "lastName": "{{lastName3}}",
+    "email": "{{email3}}",
+    "password": "{{password3}}",
+    "phone": "{{phone3}}",
+    "userStatus": 0
+}
+
+### Delete user
+DELETE {{apiUrl}}/user/{{username2}}
+Content-Type: application/json
+Accept: application/json
+
+### Logs user into the system
+GET {{apiUrl}}/user/login
+Content-Type: application/json
+Accept: application/json
+
+### Logs out current logged in user session
+GET {{apiUrl}}/user/logout
+Content-Type: application/json
+Accept: application/json
+
+### Creates list of users with given input array
+POST {{apiUrl}}/user/createWithArray
+Content-Type: application/json
+Accept: application/json
+
+[
+  {
+    "id": 0,
+    "username": "{{username}}",
+    "firstName": "{{firstName}}",
+    "lastName": "{{lastName}}",
+    "email": "{{email}}",
+    "password": "{{password}}",
+    "phone": "{{phone}}",
+    "userStatus": 0
+  },
+  {
+    "id": 0,
+    "username": "{{username2}}",
+    "firstName": "{{firstName2}}",
+    "lastName": "{{lastName2}}",
+    "email": "{{email2}}",
+    "password": "{{password2}}",
+    "phone": "{{phone2}}",
+    "userStatus": 0
+  }
+]
+
+### Create user
+POST {{apiUrl}}/user
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 0,
+  "username": "{{username}}",
+  "firstName": "{{firstName}}",
+  "lastName": "{{lastName}}",
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "phone": "{{phone}}",
+  "userStatus": 0
+}
+
+
+###
+curl -X 'POST' \
+  'https://petstore.swagger.io/v2/pet/9223372036854775807/uploadImage' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'additionalMetadata=additional' \
+  -F 'file=@cat.png;type=image/png'
