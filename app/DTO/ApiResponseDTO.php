@@ -4,7 +4,11 @@ namespace App\DTO;
 
 class ApiResponseDTO
 {
-    public int $code;
-    public string $type;
-    public string $message;
+    public function __construct(
+        public ?int $code,
+        public ?string $type,
+        public ?string $message
+    ) {
+
+    }
 }

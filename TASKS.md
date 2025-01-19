@@ -7,7 +7,7 @@
 - - może być jsona
 - - może być inna zwrotka
 - utworzenie DTO [done]
-- mapowanie DTO
+- mapowanie DTO []
 - DTO musi byc Stringable
 - widoki
 - - response message - powinna być metoda typu flash
