@@ -174,7 +174,7 @@ Accept: application/json
 ]
 
 ### Get user by user name
-GET {{apiUrl}}/user/{{username}}
+GET {{apiUrl}}/user/{{username3}}
 Content-Type: application/json
 Accept: application/json
 
