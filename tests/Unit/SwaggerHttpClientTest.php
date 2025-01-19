@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Enum\UserApIUrl;
-use App\Factories\ApiResponseDTOFactory;
 use App\Http\Clients\SwaggerHttpClient;
 use Tests\TestCase;
 
