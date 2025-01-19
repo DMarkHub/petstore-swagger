@@ -6,7 +6,7 @@ use App\Interfaces\ApiResonseFactoryInterface;
 use App\DTO\OrderDTO;
 use App\Enum\OrderStatus;
 use App\Helpers\ApiResonseHelper;
-use App\Namespaces\DTOInterface;
+use App\Interfaces\DTOInterface;
 use Illuminate\Http\Client\Response;
 
 class OrderDTOFactory implements ApiResonseFactoryInterface

@@ -2,7 +2,7 @@
 
 namespace App\Factories;
 
-use App\ApiResonseFactoryInterface;
+use App\Interfaces\ApiResonseFactoryInterface;
 use App\DTO\CategoryDTO;
 use App\Helpers\ApiResonseHelper;
 use Illuminate\Http\Client\Response;
