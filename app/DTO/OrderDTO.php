@@ -3,7 +3,7 @@
 namespace App\DTO;
 
 use App\Enum\OrderStatus;
-use App\Namespaces\DTOInterface;
+use App\Interfaces\DTOInterface;
 
 class OrderDTO implements DTOInterface
 {

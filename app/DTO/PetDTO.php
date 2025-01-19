@@ -4,7 +4,7 @@ namespace App\DTO;
 
 use App\DTO\CategoryDTO;
 use App\Enum\PetStatus;
-use App\Namespaces\DTOInterface;
+use App\Interfaces\DTOInterface;
 
 class PetDTO implements DTOInterface
 {

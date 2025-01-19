@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-use App\Namespaces\DTOInterface;
+use App\Interfaces\DTOInterface;
 
 class TagDTO implements DTOInterface
 {

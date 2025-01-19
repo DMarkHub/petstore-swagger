@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Namespaces;
+namespace App\Interfaces;
 
 interface DTOInterface
 {
