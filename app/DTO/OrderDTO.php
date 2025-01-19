@@ -3,8 +3,9 @@
 namespace App\DTO;
 
 use App\Enum\OrderStatus;
+use App\Namespaces\DTOInterface;
 
-class OrderDTO
+class OrderDTO implements DTOInterface
 {
     public function __construct(
         public int $id,

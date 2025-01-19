@@ -4,8 +4,9 @@ namespace App\DTO;
 
 use App\DTO\CategoryDTO;
 use App\Enum\PetStatus;
+use App\Namespaces\DTOInterface;
 
-class PetDTO
+class PetDTO implements DTOInterface
 {
     public function __construct(
         public int $id,

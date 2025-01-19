@@ -2,7 +2,9 @@
 
 namespace App\DTO;
 
-class ApiResponseDTO
+use App\Namespaces\DTOInterface;
+
+class ApiResponseDTO implements DTOInterface
 {
     public function __construct(
         public ?int $code,

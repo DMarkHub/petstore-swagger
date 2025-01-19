@@ -2,7 +2,9 @@
 
 namespace App\DTO;
 
-class TagDTO
+use App\Namespaces\DTOInterface;
+
+class TagDTO implements DTOInterface
 {
     public function __construct(
         public int $id,

@@ -2,7 +2,9 @@
 
 namespace App\DTO;
 
-class CategoryDTO
+use App\Namespaces\DTOInterface;
+
+class CategoryDTO implements DTOInterface
 {
     public function __construct(
         public int $id,
