@@ -126,9 +126,9 @@ class ApiResponseHelperTest extends TestCase
             'key' => 'approved'
         ];
 
-        $this->assertEquals(
-            $data['key'],
-            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::cases())
+        $this->assertInstanceOf(
+            OrderStatus::class,
+            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::class)
         );
     }
 
@@ -140,7 +140,7 @@ class ApiResponseHelperTest extends TestCase
 
         $this->assertEquals(
             null,
-            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::cases())
+            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::class)
         );
     }
 
@@ -150,7 +150,7 @@ class ApiResponseHelperTest extends TestCase
 
         $this->assertEquals(
             null,
-            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::cases())
+            $this->helper->filterEnumFromArray($data, 'key', OrderStatus::class)
         );
     }
 }
