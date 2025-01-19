@@ -12,7 +12,7 @@ class PetDTO implements DTOInterface
         public int $id,
         public CategoryDTO $category,
         public string $name,
-        public string $photoUrls,
+        public array $photoUrls,
         public array $tags,
         public PetStatus $status,
     ) {

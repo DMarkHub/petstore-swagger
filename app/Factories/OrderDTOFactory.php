@@ -2,14 +2,14 @@
 
 namespace App\Factories;
 
-use App\Interfaces\ApiResonseFactoryInterface;
 use App\DTO\OrderDTO;
 use App\Enum\OrderStatus;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\DTOInterface;
+use App\Interfaces\FromArrayFactoryInterface;
 use Illuminate\Http\Client\Response;
 
-class OrderDTOFactory implements ApiResonseFactoryInterface
+class OrderDTOFactory implements FromArrayFactoryInterface
 {
     public function __construct(
         private ApiResonseHelper $apiResonseHelper
@@ -17,23 +17,25 @@ class OrderDTOFactory implements ApiResonseFactoryInterface
 
     }
 
-    public function create(int $id, int $petId, int $quantity, string $shipDate, OrderStatus $status, bool $complete)
+    public function create(?int $id, ?int $petId, ?int $quantity, ?string $shipDate, ?OrderStatus $status, ?bool $complete): OrderDTO
     {
         return new OrderDTO($id, $petId, $quantity, $shipDate, $status, $complete);
     }
 
-    public function createFromApiResponse(Response $response): ?DTOInterface
+    public function createFromArray(array $input): ?DTOInterface
     {
-        $body = $response->json();
-
         $params = [
-            $this->apiResonseHelper->filterIntFromArray($body, 'id'),
-            $this->apiResonseHelper->filterIntFromArray($body, 'petId'),
-            $this->apiResonseHelper->filterIntFromArray($body, 'quantity'),
-            $this->apiResonseHelper->filterStringFromArray($body, 'shipDate'),
-            $this->apiResonseHelper->filterEnumFromArray($body, 'status', OrderStatus::cases()),
-            $this->apiResonseHelper->filterBoolFromArray($body, 'complete'),
+            $this->apiResonseHelper->filterIntFromArray($input, 'id'),
+            $this->apiResonseHelper->filterIntFromArray($input, 'petId'),
+            $this->apiResonseHelper->filterIntFromArray($input, 'quantity'),
+            $this->apiResonseHelper->filterStringFromArray($input, 'shipDate'),
+            $this->apiResonseHelper->filterEnumFromArray($input, 'status', OrderStatus::class),
+            $this->apiResonseHelper->filterBoolFromArray($input, 'complete'),
         ];
+
+        if (in_array(null, $params, true)) {
+            return null;
+        }
 
         return $this->create(...$params);
     }

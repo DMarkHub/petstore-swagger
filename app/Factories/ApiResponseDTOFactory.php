@@ -2,13 +2,12 @@
 
 namespace App\Factories;
 
-use App\ApiResonseFactoryInterface;
 use App\DTO\ApiResponseDTO;
 use App\Helpers\ApiResonseHelper;
+use App\Interfaces\FromArrayFactoryInterface;
 use Illuminate\Http\Client\Response;
-use ReflectionClass;
 
-class ApiResponseDTOFactory implements ApiResonseFactoryInterface
+class ApiResponseDTOFactory implements FromArrayFactoryInterface
 {
     public function __construct(
         private ApiResonseHelper $apiResonseHelper
@@ -21,14 +20,18 @@ class ApiResponseDTOFactory implements ApiResonseFactoryInterface
         return new ApiResponseDTO($code, $type, $message);
     }
 
-    public function createFromApiResponse(Response $response): ApiResponseDTO
+    public function createFromArray(array $input): ?ApiResponseDTO
     {
-        $body = $response->json();
+        $params = [
+            $this->apiResonseHelper->filterIntFromArray($input, 'code'),
+            $this->apiResonseHelper->filterStringFromArray($input, 'type'),
+            $this->apiResonseHelper->filterStringFromArray($input, 'message')
+        ];
 
-        return $this->create(
-            $this->apiResonseHelper->filterIntFromArray($body, 'code'),
-            $this->apiResonseHelper->filterStringFromArray($body, 'type'),
-            $this->apiResonseHelper->filterStringFromArray($body, 'message')
-        );
+        if (in_array(null, $params, true)) {
+            return null;
+        }
+
+        return $this->create(...$params);
     }
 }

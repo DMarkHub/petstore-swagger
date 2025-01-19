@@ -2,11 +2,11 @@
 
 namespace App\Factories;
 
-use App\DTO\CategoryDTO;
+use App\DTO\TagDTO;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\FromArrayFactoryInterface;
 
-class CategoryDTOFactory implements FromArrayFactoryInterface
+class TagDTOFactory implements FromArrayFactoryInterface
 {
     public function __construct(
         private ApiResonseHelper $apiResonseHelper
@@ -14,12 +14,12 @@ class CategoryDTOFactory implements FromArrayFactoryInterface
 
     }
 
-    public function create(int $id, string $name)
+    public function create(int $id, string $name): TagDTO
     {
-        return new CategoryDTO($id, $name);
+        return new TagDTO($id, $name);
     }
 
-    public function createFromArray(array $input): ?CategoryDTO
+    public function createFromArray(array $input): ?TagDTO
     {
         $id = $this->apiResonseHelper->filterIntFromArray($input, 'id');
         $name = $this->apiResonseHelper->filterStringFromArray($input, 'name');

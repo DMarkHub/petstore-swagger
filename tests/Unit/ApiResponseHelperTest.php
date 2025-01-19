@@ -20,7 +20,7 @@ class ApiResponseHelperTest extends TestCase
     public function testFilterIntValid(): void
     {
         $data = [
-            'key' => 1
+            'key' => 6
         ];
 
         $this->assertEquals(
@@ -100,7 +100,7 @@ class ApiResponseHelperTest extends TestCase
     public function testFilterBoolInvalid(): void
     {
         $data = [
-            'key' => 1
+            'key' => 10
         ];
 
         $this->assertEquals(

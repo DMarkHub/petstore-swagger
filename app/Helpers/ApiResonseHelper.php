@@ -2,15 +2,16 @@
 
 namespace App\Helpers;
 
+use App\Factories\CategoryDTOFactory;
+use App\Factories\TagDTOFactory;
+use App\Interfaces\DTOInterface;
+use BackedEnum;
+
 class ApiResonseHelper
 {
     public function filterIntFromArray(array $haystack, string $key, mixed $default = null): ?int
     {
-        if (isset($haystack[$key])) {
-            return (int) $haystack[$key];
-        }
-
-        return $default;
+        return isset($haystack[$key]) ? (int) $haystack[$key] : $default;
     }
 
     public function filterStringFromArray(array $haystack, string $key, mixed $default = null): ?string
@@ -24,15 +25,61 @@ class ApiResonseHelper
 
     public function filterBoolFromArray(array $haystack, string $key, mixed $default = null): ?bool
     {
-        return (isset($haystack[$key]) && is_bool($haystack[$key])) ? $haystack[$key] : $default;
+        return (
+            isset($haystack[$key]) && $this->isBool($haystack[$key])) ? $haystack[$key] : $default;
     }
 
-    public function filterEnumFromArray(array $haystack, string $key, array $allowed, mixed $default = null): ?bool
+    public function filterEnumFromArray(array $haystack, string $key, string $enumClass, mixed $default = null): ?BackedEnum
     {
-        $map = array_flip(array_map(function ($allowed) {
-            return $allowed->value;
-        }, $allowed));
+        return isset($haystack[$key]) ? $enumClass::tryFrom($haystack[$key]) : $default;
+    }
 
-        return (isset($haystack[$key]) && array_key_exists($haystack[$key], $map)) ? $haystack[$key] : $default;
+    public function filterCategoryFromArray(array $haystack, string $key): ?DTOInterface
+    {
+        $factory = app(CategoryDTOFactory::class);
+
+        if (isset($haystack[$key]) && is_array($haystack[$key])) {
+            return $factory->createFromArray($haystack);
+        }
+
+        return null;
+    }
+
+    public function filterTagFromArray(array $haystack, string $key, mixed $default = null): ?array
+    {
+        $factory = app(TagDTOFactory::class);
+        $output = [];
+
+        if (isset($haystack[$key]) && is_array($haystack[$key])) {
+            foreach ($haystack[$key] as $item) {
+                $output[] = $factory->createFromArray($item);
+            }
+        }
+
+        $output = array_filter($output, fn($value) => $value !== null);
+
+        return (!empty($output)) ? $output : $default;
+    }
+
+    public function filterPhotosFromArray(array $haystack, string $key, mixed $default = null): ?array
+    {
+        $output = [];
+
+        if (isset($haystack[$key]) && is_array($haystack[$key])) {
+            foreach ($haystack[$key] as $value) {
+                if (!is_string($value)) {
+                    continue;
+                }
+
+                $output[] = filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+        }
+
+        return (!empty($output)) ? $output : $default;
+    }
+
+    private function isBool(mixed $value): bool
+    {
+        return $value === 1 || $value === 0 || is_bool($value);
     }
 }
