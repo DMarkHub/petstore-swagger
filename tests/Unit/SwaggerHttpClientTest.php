@@ -10,14 +10,12 @@ use Tests\TestCase;
 class SwaggerHttpClientTest extends TestCase
 {
     private SwaggerHttpClient $client;
-    private ApiResponseDTOFactory $responseFactory;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->client = app(SwaggerHttpClient::class);
-        $this->responseFactory = app(ApiResponseDTOFactory::class);
     }
 
     /**
