@@ -115,6 +115,13 @@ class SwaggerHttpClient
         );
     }
 
+    public function getPetsByStatus(string $query): Response
+    {
+        return $this->httpClient->get(
+            $this->prepareUrl(PetApiUrl::FindByStatus->value, [$query])
+        );
+    }
+
     public function createPet(PetDTO $pet): Response
     {
         return $this->httpClient

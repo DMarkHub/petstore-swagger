@@ -104,6 +104,29 @@ class PetController extends Controller
         return view('pet.create', $this->getViewData());
     }
 
+    public function find(Request $request): View
+    {
+        $this->addFormItem('availiablePetStatus', PetStatus::values());
+
+        try {
+            if ($request->isMethod('POST')) {
+                $validated = $request->validate([
+                    'status' => 'required|array',
+                ]);
+
+                $pets = $this->petService->findByStatus($validated['status']);
+
+                array_map(function ($pet) {
+                    $this->addResultComponentData($pet->printable());
+                }, $pets);
+            }
+        } catch (AppException $e) {
+            $this->setMessage($e->apiResponseDTO);
+        }
+
+        return view('pet.bystatus', $this->getViewData());
+    }
+
     private function getActions(int $id): array
     {
         return [

@@ -10,13 +10,17 @@
             @foreach ($item as $key => $value)
                 <tr>
                     <td>{{$key}}</td>
-                    @if (is_array($value) && isset($value['name']))
-                        <td>{{$value['name']}}</td>
-                    @elseif (is_array($value) && is_string($value[0]))
-                        <td>{{implode(', ', $value)}}</td>
-                    @elseif (is_array($value) && is_array($value[0]))
-                        <td>{{implode(', ', array_map(function ($element) {
-                            return $element['name'] ?? ''; }, $value))}}</td>
+                    @if (is_array($value))
+                        @if (isset($value['name']))
+                            <td>{{$value['name']}}</td>
+                        @elseif (isset($value[0]))
+                            @if (is_string($value[0]))
+                                <td>{{implode(', ', $value)}}</td>
+                            @elseif (is_array($value[0]))
+                                <td>{{implode(', ', array_map(function ($element) {
+                                            return $element['name'] ?? ''; }, $value))}}</td>
+                            @endif
+                        @endif
                     @else
                         <td>{{$value}}</td>
                     @endif

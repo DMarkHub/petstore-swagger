@@ -29,6 +29,7 @@
             <div class="col">
                 Pet:
                 <a href="{{route('pet.show')}}">Find pet</a> |
+                <a href="{{route('pet.find.by.status')}}">Find by status</a> |
                 <a href="{{route('pet.create')}}">Pet create</a>
             </div>
         </div>

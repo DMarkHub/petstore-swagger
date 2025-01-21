@@ -31,6 +31,24 @@ class PetService
         return $this->petDTOFactory->createFromArray($decodedJson);
     }
 
+    public function findByStatus(array $status): array
+    {
+        $query = sprintf('?%s', implode('&', array_map(fn($el) => sprintf('status=%s', $el), $status)));
+
+        $response = $this->swaggerHttpClient->getPetsByStatus($query);
+
+        $this->checkResponse($response);
+
+        $decodedJson = $response->json();
+
+        $output = array_map(function ($json) {
+            return $this->petDTOFactory->createFromArray($json);
+        }, $decodedJson);
+
+        return array_filter($output, fn($dto) => $dto !== null);
+        ;
+    }
+
     public function create(array $params): ?PetDTO
     {
         $params['id'] = 0;
