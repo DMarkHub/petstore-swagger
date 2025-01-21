@@ -51,7 +51,7 @@ class StoreService
     public function createOrder(array $params): OrderDTO
     {
         $params['id'] = 0;
-        $params['complete'] = $params['complete'] === 'on' ? 1 : 0;
+        $params['complete'] = (int) isset($params['complete']) && $params['complete'] === 'on';
         $params['shipDate'] = (new DateTime($params['shipDate']))->format('c');
 
         $order = $this->orderDTOFactory->createFromArray($params);

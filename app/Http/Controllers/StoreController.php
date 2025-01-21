@@ -60,7 +60,7 @@ class StoreController extends Controller
                     'quantity' => 'required|integer',
                     'shipDate' => 'required|string',
                     'status' => 'required|string',
-                    'complete' => 'required|string'
+                    'complete' => 'string'
                 ]);
 
                 $order = $this->storeService->createOrder($validated);
