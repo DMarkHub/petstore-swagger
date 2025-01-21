@@ -103,11 +103,17 @@ class UserService
 
     public function getUser(): ?UserDTO
     {
-        $user = json_decode(session('user'), true);
+        $session = session('user');
 
-        if ($user) {
-            return $this->userDTOFactory->createFromArray($user);
+        if ($session) {
+            $user = json_decode($session, true);
+
+            if ($user) {
+                return $this->userDTOFactory->createFromArray($user);
+            }
         }
+
+
 
         return null;
     }

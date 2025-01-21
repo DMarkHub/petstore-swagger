@@ -57,7 +57,7 @@ class PetService
 
         $dto = $this->petDTOFactory->createFromArray($params);
 
-        $response = $this->swaggerHttpClient->createPet($dto);
+        $response = $this->swaggerHttpClient->updatePet($dto);
 
         $this->checkResponse($response);
 

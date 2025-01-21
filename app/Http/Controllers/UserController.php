@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\UserDTO;
 use App\Exceptions\AppException;
 use App\Factories\ApiResponseDTOFactory;
 use App\Services\UserService;
@@ -128,12 +129,7 @@ class UserController extends Controller
 
     public function update(Request $request, string $username): RedirectResponse|View
     {
-        $message = null;
-        $form = [];
-
         try {
-            $user = $this->userService->getUserByUsername($username);
-
             if ($request->isMethod('POST')) {
                 $validated = $request->validate([
                     'id' => 'required|int',
@@ -149,19 +145,18 @@ class UserController extends Controller
                 $update = $this->userService->updateUser($username, $validated);
 
                 if ($update->code === 200) {
-                    return redirect()->route('user.update', ['username' => $validated['username']]);
+                    $this->setMessage($this->apiResponseDTOFactory->createSuccessMessage('User updated'));
                 }
             }
 
-            $form = $user->printable();
+            $user = $this->userService->getUserByUsername($username);
+
+            $this->prepareForm($user);
         } catch (AppException $e) {
-            $message = $e->apiResponseDTO->printable();
+            $this->setMessage($e->apiResponseDTO);
         }
 
-        return view('user.create', [
-            'message' => $message,
-            'form' => $form
-        ]);
+        return view('user.create', $this->getViewData());
     }
 
     public function delete(Request $request, string $username): View
@@ -180,5 +175,16 @@ class UserController extends Controller
         }
 
         return view('user.delete', $this->getViewData());
+    }
+
+    private function prepareForm(UserDTO $user): void
+    {
+        $this->addFormItem('id', $user->id);
+        $this->addFormItem('username', $user->username);
+        $this->addFormItem('firstName', $user->firstName);
+        $this->addFormItem('lastName', $user->lastName);
+        $this->addFormItem('email', $user->email);
+        $this->addFormItem('phone', $user->phone);
+        $this->addFormItem('userStatus', $user->userStatus);
     }
 }
