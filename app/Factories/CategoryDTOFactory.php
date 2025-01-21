@@ -14,7 +14,7 @@ class CategoryDTOFactory implements FromArrayFactoryInterface
 
     }
 
-    public function create(int $id, string $name)
+    public function create(int $id, string $name): CategoryDTO
     {
         return new CategoryDTO($id, $name);
     }

@@ -5,7 +5,6 @@ namespace App\Factories;
 use App\DTO\ApiResponseDTO;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\FromArrayFactoryInterface;
-use Illuminate\Http\Client\Response;
 
 class ApiResponseDTOFactory implements FromArrayFactoryInterface
 {
@@ -15,7 +14,7 @@ class ApiResponseDTOFactory implements FromArrayFactoryInterface
 
     }
 
-    public function create(?int $code, ?string $type, ?string $message): ApiResponseDTO
+    public function create(int $code, string $type, string $message): ApiResponseDTO
     {
         return new ApiResponseDTO($code, $type, $message);
     }
@@ -33,5 +32,10 @@ class ApiResponseDTOFactory implements FromArrayFactoryInterface
         }
 
         return $this->create(...$params);
+    }
+
+    public function createSuccessMessage(string $message): ApiResponseDTO
+    {
+        return $this->create(0, 'success', $message);
     }
 }

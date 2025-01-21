@@ -7,7 +7,6 @@ use App\Enum\OrderStatus;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\DTOInterface;
 use App\Interfaces\FromArrayFactoryInterface;
-use Illuminate\Http\Client\Response;
 
 class OrderDTOFactory implements FromArrayFactoryInterface
 {

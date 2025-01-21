@@ -8,7 +8,6 @@ use App\Enum\PetStatus;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\DTOInterface;
 use App\Interfaces\FromArrayFactoryInterface;
-use Illuminate\Http\Client\Response;
 
 class PetDTOFactory implements FromArrayFactoryInterface
 {
@@ -42,9 +41,9 @@ class PetDTOFactory implements FromArrayFactoryInterface
             $this->apiResonseHelper->filterIntFromArray($input, 'id'),
             $this->apiResonseHelper->filterCategoryFromArray($input, 'category'),
             $this->apiResonseHelper->filterStringFromArray($input, 'name'),
-            $this->apiResonseHelper->filterPhotosFromArray($input, 'photoUrls'),
-            $this->apiResonseHelper->filterTagFromArray($input, 'tags'),
-            $this->apiResonseHelper->filterEnumFromArray($input, 'status', PetStatus::class),
+            $this->apiResonseHelper->filterPhotosFromArray($input, 'photoUrls', []),
+            $this->apiResonseHelper->filterTagFromArray($input, 'tags', []),
+            $this->apiResonseHelper->filterEnumFromArray($input, 'status', PetStatus::class, 'undefined'),
         ];
 
         if (in_array(null, $params, true)) {

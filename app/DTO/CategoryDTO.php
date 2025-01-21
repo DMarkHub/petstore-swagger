@@ -3,9 +3,13 @@
 namespace App\DTO;
 
 use App\Interfaces\DTOInterface;
+use App\Interfaces\PrintableInterface;
+use App\Traits\PrintableTrait;
 
-class CategoryDTO implements DTOInterface
+class CategoryDTO implements DTOInterface, PrintableInterface
 {
+    use PrintableTrait;
+
     public function __construct(
         public int $id,
         public string $name

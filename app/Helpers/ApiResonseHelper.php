@@ -31,7 +31,13 @@ class ApiResonseHelper
 
     public function filterEnumFromArray(array $haystack, string $key, string $enumClass, mixed $default = null): ?BackedEnum
     {
-        return isset($haystack[$key]) ? $enumClass::tryFrom($haystack[$key]) : $default;
+        if (isset($haystack[$key])) {
+            $output = $enumClass::tryFrom($haystack[$key]);
+        } else {
+            $output = $default;
+        }
+
+        return $output;
     }
 
     public function filterCategoryFromArray(array $haystack, string $key): ?DTOInterface
@@ -39,7 +45,9 @@ class ApiResonseHelper
         $factory = app(CategoryDTOFactory::class);
 
         if (isset($haystack[$key]) && is_array($haystack[$key])) {
-            return $factory->createFromArray($haystack);
+            $dto = $factory->createFromArray($haystack[$key]);
+
+            return $dto;
         }
 
         return null;

@@ -6,7 +6,6 @@ use App\DTO\UserDTO;
 use App\Helpers\ApiResonseHelper;
 use App\Interfaces\DTOInterface;
 use App\Interfaces\FromArrayFactoryInterface;
-use Illuminate\Http\Client\Response;
 
 class UserDTOFactory implements FromArrayFactoryInterface
 {
