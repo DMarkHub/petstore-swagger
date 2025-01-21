@@ -43,7 +43,7 @@ class PetDTOFactory implements FromArrayFactoryInterface
             $this->apiResonseHelper->filterStringFromArray($input, 'name'),
             $this->apiResonseHelper->filterPhotosFromArray($input, 'photoUrls', []),
             $this->apiResonseHelper->filterTagFromArray($input, 'tags', []),
-            $this->apiResonseHelper->filterEnumFromArray($input, 'status', PetStatus::class, 'undefined'),
+            $this->apiResonseHelper->filterEnumFromArray($input, 'status', PetStatus::class),
         ];
 
         if (in_array(null, $params, true)) {
